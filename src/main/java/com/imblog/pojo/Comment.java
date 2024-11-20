@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("comments")  //评论表
+@TableName("blog_comment")  //评论表
 public class Comment {
     @TableId(value = "comment_id", type = IdType.AUTO)
     private Long commentId;

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("friendship_links")  //友链表
+@TableName("blog_friendship_link")  //友链表
 public class FriendshipLink {
     @TableId(value = "link_id", type = IdType.AUTO)
     private Long linkId;

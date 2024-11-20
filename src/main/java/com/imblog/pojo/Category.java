@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("categories")    //分类表
+@TableName("blog_category")    //分类表
 public class Category {
     @TableId(value = "category_id", type = IdType.AUTO)
     private Long categoryId;
