@@ -1,0 +1,103 @@
+
+/* 顶部导航栏样式 */
+.navbar {
+    background-color: #343a40 !important;
+    padding: 10px 0;
+    margin-bottom: 100px;
+}
+
+.navbar .nav-link {
+    color: white !important;
+    font-size: 2.0em; /* 增大字体大小 */
+    margin-right: 50px; /* 增加链接之间的间距 */
+    padding: 20px 15px; /* 增加内边距 */
+}
+
+.navbar .nav-link:hover {
+    color: #f8f9fa !important;
+}
+
+.navbar .container-fluid {
+    justify-content: space-between; /* 使链接均匀分布 */
+}
+
+.navbar .navbar-nav {
+    flex-grow: 1; /* 使链接均匀分布 */
+}
+.nav-item:last-child::after {
+    content: none;
+}
+
+/* 主体内容样式 */
+.main-content {
+    margin-top: 20px;
+}
+
+.dashboard-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+}
+
+.dashboard-card p {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.dashboard-card i {
+    font-size: 2em;
+    margin-right: 10px;
+}
+
+.dashboard-card .card-icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dashboard-card .card-value {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 导航栏样式 */
+.page-navigation nav a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.page-navigation nav a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+.page-navigation nav {
+    margin-bottom: 10px;
+}
+
+/* 表格样式 */
+table {
+    border-collapse: collapse;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}

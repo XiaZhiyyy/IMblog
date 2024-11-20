@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/vue.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .mt-5{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div id="login" class="container mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="text-center mb-4">用户登录</h1>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="memberName">用户名：</label>
+                    <input type="text" v-model="user.memberName" id="memberName" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="memberPassword">密码：</label>
+                    <input type="password" v-model="user.memberPassword" id="memberPassword" class="form-control">
+                </div>
+                <button type="button" @click="login" class="btn btn-primary">点击登录</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<<script>
+    new Vue({
+        el: '#login',
+        data: {
+            user: {
+                memberName:'',
+                memberPassword:''
+            }
+        },
+        methods: {
+            login() {
+                $.ajax({    //发送Ajax请求
+                    url:"/admin/login",
+                    type:"post",
+                    data: JSON.stringify(this.user),    //请求参数类型转换，只适用post，put
+                    contentType:"application/json", //请求内容类型，只适用post，put
+                    success:function (rs){  //访问服务器成功后的回调函数
+                        if(rs.code==200){
+                            alert(rs.msg);
+                            window.location.href="/index.html";
+                        }else {
+                            alert(rs.msg);
+                        }
+                    }
+                })
+            }
+        }
+    });
+</script>
+</html>

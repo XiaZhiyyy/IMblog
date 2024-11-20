@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户信息管理</title>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/vue.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<div id="myApp">
+<!--    <label>用户名：</label>-->
+<!--    <input type="text" v-model="params.memberName">-->
+<!--    <button type="button" @click="query">查询用户信息</button>-->
+<!--    <button type="button" @click="addPage">跳转新增页面</button>-->
+    <form class="form-inline">
+    <div class="form-group">
+        <label class="col-sm-4 control-label">用户名:</label>
+        <div class="col-sm-2">
+            <input type="text" class="form-control" v-model="params.name">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-8">
+            <button type="button" @click="query" class="btn btn-info">查询用户信息</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-8">
+            <button type="button" @click="addPage"class="btn btn-info">跳转新增页面</button>
+        </div>
+    </div>
+    </form>
+    <table class="table table-bordered">
+        <th>编号</th>
+        <th>用户名</th>
+        <th>密码</th>
+        <th>邮箱</th>
+        <th>操作</th>
+        <tbody>
+        <tr v-for="x in list">
+            <!--{{}}:文本绑定-->
+            <td>{{x.memberId}}</td>
+            <td>{{x.memberName}}</td>
+            <td>{{x.memberPassword}}</td>
+            <td>{{x.memberEmail}}</td>
+            <td>
+                <button type="button" class="btn btn-info" @click="updatePage(x)">跳转修改</button>
+                <button type="button" class="btn btn-info" @click="del(x)">点击删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script>
+    new Vue({
+        el:"#myApp",
+        data:{  //定义接收服务器的响应数据集
+            list:[],
+            params:{    //自定义的请求参数
+                memberName:""
+            }
+
+        },
+        mounted(){ //生命周期函数（等同于JavaScript文档加载函数）
+            this.query();
+        },
+        methods:{
+            // 删除条目
+            del(x){
+                //  删除确认弹窗
+                const is = confirm("确认要删除选中条目信息吗？")
+                if(is){
+                    $.ajax({    //发送Ajax请求
+                        url:"/admin/del",
+                        type:"get",
+                        data:{"memberId":x.memberId},
+                        success:function (rs){  //访问服务器成功后的回调函数
+                            if(rs.code==200){
+                                self.query();
+                            }else {
+                                alert(rs.msg)
+                            }
+                        }
+                    })
+                }
+
+
+            },
+            //跳转用户新增页面
+            addPage(){
+                window.location.href="/userAdd.html"
+            },
+            updatePage(x){ //把选中行的数据传给修改页面
+                localStorage.setItem("userkeyname",JSON.stringify(x));
+                window.location.href="/userUpdate.html";
+            },
+            //查询数据
+            query(){
+                //把vue对象传给变量
+                const self = this;
+                $.ajax({
+                    url:"/admin/query",
+                    type:"get",
+                    data:this.params,
+                    success:function (rs){
+                        if(rs.code==200){
+                            self.list = rs.data;
+                        }else{
+                            alert(rs.msg);
+                            self.list = [];
+                        }
+                    }
+                })
+            }
+        }
+
+    })
+</script>
+</html>

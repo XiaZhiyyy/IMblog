@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>博客管理页面</title>
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/vue.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+<!-- 顶部导航栏 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="http://localhost:8080/index.html">博客首页</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">文章管理</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">分类管理</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">标签管理</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">评论管理</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">模块管理</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">友链管理</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="http://localhost:8080/userList.html">用户管理</a>
+      </li>
+    </ul>
+    <form class="d-flex ms-auto">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+<div class="container main-content">
+  <section class="page-header">
+    <h1>博客管理页面</h1>
+    <p>管理员: xiazhi</p>
+  </section>
+
+  <section id="app" class="row page-data">
+    <div class="col-md-3 col-sm-6">
+      <div class="dashboard-card">
+        <i class="fas fa-user card-icon"></i>
+        <div class="card-value">
+          <h3>当前用户</h3>
+          <p>xiazhi</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="dashboard-card">
+        <i class="fas fa-book card-icon"></i>
+        <div class="card-value">
+          <h3>文章总数</h3>
+          <p>{{ list.articleCount }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="dashboard-card">
+        <i class="fas fa-folder card-icon"></i>
+        <div class="card-value">
+          <h3>分类总数</h3>
+          <p>{{ list.categoryCount }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="dashboard-card">
+        <i class="fas fa-tag card-icon"></i>
+        <div class="card-value">
+          <h3>标签总数</h3>
+          <p>{{ list.labelCount }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="dashboard-card">
+        <i class="fas fa-comment card-icon"></i>
+        <div class="card-value">
+          <h3>评论总数</h3>
+          <p>{{ list.commentCount }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="dashboard-card">
+        <i class="fas fa-link card-icon"></i>
+        <div class="card-value">
+          <h3>友链总数</h3>
+          <p>{{ list.friendshipLinkCount }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      list: {}
+    },
+    mounted() {
+      this.fetchData();
+    },
+    methods: {
+      fetchData() {
+        $.ajax({
+          url: "http://localhost:8080/system/index",
+          type: "get",
+          success: (rs) => {
+            if (rs.code == 200) {
+              this.list = rs.data;
+            } else {
+              alert(rs.msg);
+              this.list = {};
+            }
+          }
+        });
+      }
+    }
+  });
+</script>
+<link rel="stylesheet" href="css/blog-index.css">
+</body>
+</html>
