@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户修改</title>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+</head>
+<body>
+<div id="myApp">
+  <h1>用户修改</h1>
+  <label>用户名ID：</label>
+  <input type="text" v-model="user.memberId">
+  <br>
+  <label>用户名：</label>
+  <input type="text" v-model="user.memberName">
+  <br>
+  <label>密码：</label>
+  <input type="password" v-model="user.memberPassword">
+  <br>
+  <label>邮箱：</label>
+  <input type="text" v-model="user.memberEmail">
+  <br>
+  <button type="button" @click="update">点击修改</button>
+</div>
+</body>
+<script>
+  new Vue({
+    el:"#myApp",//绑定元素
+    data:{  //传输数据
+      user:{  //请求参数
+          memberId:"",  //对应文本框"user.id"
+          memberName:"",
+          memberPassword:"",
+          memberEmail:""
+      }
+    },
+      mounted(){
+        //获取本地存储的数据
+          const data = localStorage.getItem("userkeyname");
+          this.user = JSON.parse(data); //将键值对字符串格式的data转换为对象
+      },
+    methods:{
+      update(){  //用户修改信息，提交后端
+        $.ajax({    //发送Ajax请求
+          url:"/admin/update",
+          type:"put",
+          data: JSON.stringify(this.user),    //请求参数类型转换，只适用post，put
+          contentType:"application/json", //请求内容类型，只适用post，put
+          success:function (rs){  //访问服务器成功后的回调函数
+            if(rs.code==200){
+              alert(rs.msg);
+              window.location.href="/userList.html";
+            }else {
+              alert(rs.msg)
+            }
+          }
+        })
+      }
+    }
+  })
+
+</script>
+</html>
