@@ -9,13 +9,19 @@ import lombok.Data;
 @Data
 @TableName("blog_friendship_link")  //友链表
 public class FriendshipLink {
+
     @TableId(value = "link_id", type = IdType.AUTO)
     private Long linkId;
     // 友情链接相关字段
     @TableField("link_name")
     private String linkName;
+
     @TableField("link_url")
     private String linkUrl;
+
+    @TableField("link_description")
+    private String linkDescription;
+
 
     public Long getLinkId() {
         return linkId;
@@ -39,5 +45,13 @@ public class FriendshipLink {
 
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
+    }
+
+    public String getLinkDescription() {
+        return linkDescription;
+    }
+
+    public void setLinkDescription(String linkDescription) {
+        this.linkDescription = linkDescription;
     }
 }

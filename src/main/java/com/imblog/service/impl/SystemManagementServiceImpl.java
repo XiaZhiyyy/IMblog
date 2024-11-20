@@ -33,21 +33,19 @@ public class SystemManagementServiceImpl implements SystemManagementService {
         QueryWrapper<Article> q_art = new QueryWrapper<>();
         long articleCount = articleDao.selectCount(q_art);
 
-//        QueryWrapper<Category> q_cat = new QueryWrapper<>();
-//        long categoryCount = categoryDao.selectCount(q_cat);
-//
+        QueryWrapper<Category> q_cat = new QueryWrapper<>();
+        long categoryCount = categoryDao.selectCount(q_cat);
+
 //        QueryWrapper<Label> q_lab = new QueryWrapper<>();
 //        long labelCount = labelDao.selectCount(q_lab);
 //
-//        QueryWrapper<FriendshipLink> q_fri = new QueryWrapper<>();
-//        long friendshipLinkCount = friendshipLinkDao.selectCount(q_fri);
+        QueryWrapper<FriendshipLink> q_fri = new QueryWrapper<>();
+        long friendshipLinkCount = friendshipLinkDao.selectCount(q_fri);
 
 
         // 测试用数据
         long commentCount = 11451;
-        long categoryCount =6;
         long labelCount = 12;
-        long friendshipLinkCount = 3;
         return new SystemManagementInfo(commentCount,  articleCount, categoryCount, labelCount, friendshipLinkCount);
     }
 }
