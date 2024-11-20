@@ -68,9 +68,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public ResultVo del(Integer id) {
+    public ResultVo del(Integer memberId) {
         try{
-            int l = userInfoDao.deleteById(id);
+            int l = userInfoDao.deleteById(memberId);
             if(l > 0){
                 return ResultVo.success("删除目录条数："+ l);
             }else{
@@ -83,11 +83,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public ResultVo query(String name) {
+    public ResultVo query(String memberName) {
         try{
             QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
-            boolean is = name!=null&&!name.equals("");
-            queryWrapper.like(is,"member_name",name);    //必须和数据库表中一致
+            boolean is = memberName!=null&&!memberName.equals("");
+            System.out.println("输入的用户名：" + memberName);
+            queryWrapper.like(is,"member_name",memberName);    //必须和数据库表中一致
             // 条件不成立，默认查询所有
             List<UserInfo> list = userInfoDao.selectList(queryWrapper);
             if(list.size() > 0){
