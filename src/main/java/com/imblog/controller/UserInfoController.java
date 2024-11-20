@@ -34,10 +34,10 @@ public class UserInfoController {
     //查询
     //get 请求更快，明文传输
     @GetMapping("/query")
-    public ResultVo query(String member_name){
-        return userInfoService.query(member_name);
+    public ResultVo query(String memberName){
+        return userInfoService.query(memberName);
     }
 
     @GetMapping("/del")
-    public ResultVo del(Integer member_id){return userInfoService.del(member_id);}
+    public ResultVo del(Integer memberId){return userInfoService.del(memberId);}
 }

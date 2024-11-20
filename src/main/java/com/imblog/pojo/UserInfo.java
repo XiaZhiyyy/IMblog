@@ -29,4 +29,51 @@ public class UserInfo {
     @TableField("salt")
     private String salt;
 
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public Integer getMemberLevel() {
+        return memberLevel;
+    }
+
+    public void setMemberLevel(Integer memberLevel) {
+        this.memberLevel = memberLevel;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public String getMemberPassword() {
+        return memberPassword;
+    }
+
+    public void setMemberPassword(String memberPassword) {
+        this.memberPassword = memberPassword;
+    }
+
+    public String getMemberEmail() {
+        return memberEmail;
+    }
+
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }
