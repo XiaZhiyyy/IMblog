@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建用户管理</title>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div id="myApp">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://localhost:8080/index.html">博客首页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">文章管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">分类管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">标签管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">评论管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">模块管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">友链管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="http://localhost:8080/userList.html">用户管理</a>
+                </li>
+            </ul>
+            <form class="d-flex ms-auto">
+                <img src="images/logo.png" alt="心语阁" class="me-2" style="height: 50px;">
+            </form>
+        </div>
+    </nav>
+    <h1 class="mb-3">用户新增</h1>
+    <form>
+        <table class="table table-bordered">
+            <th>用户编号</th>
+            <th>用户名</th>
+            <th>用户权限</th>
+            <th>密码</th>
+            <th>邮箱</th>
+            <th>操作</th>
+            <tbody>
+            <tr>
+                <td>
+                    <input type="text" class="form-control" id="memberId" v-model="user.memberId"></input>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="memberName" v-model="user.memberName"></input>
+                </td>
+                <td>
+                    <select class="form-select" aria-label="Default select example" v-model="user.memberLevel">
+                        <option selected disabled>请选择用户权限</option>
+                        <option value="1">管理员</option>
+                        <option value="2">普通用户</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="password" class="form-control" id="memberPassword" v-model="user.memberPassword"></input>
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="memberEmail" v-model="user.memberEmail"></input>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" @click="add">点击新增</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<link rel="stylesheet" href="css/blog-index.css">
+</body>
+<script>
+    new Vue({
+        el:"#myApp",//绑定元素
+        data:{  //传输数据
+            user:{  //请求参数
+                memberId:"",
+                memberLevel:"",
+                memberName:"",
+                memberPassword:"",
+                memberEmail:""
+            }
+        },
+        methods:{   //定义函数
+            add(){  //用户新增，提交后端
+                $.ajax({    //发送Ajax请求
+                    url:"/admin/add",
+                    type:"post",
+                    data: JSON.stringify(this.user),    //请求参数类型转换，只适用post，put
+                    contentType:"application/json", //请求内容类型，只适用post，put
+                    success:function (rs){  //访问服务器成功后的回调函数
+                        if(rs.code==200){
+                            alert(rs.msg);
+                            window.location.href="/userList.html";
+                        }else {
+                            alert(rs.msg);
+                        }
+                    }
+                })
+            }
+        }
+    })
+
+</script>
+</html>
