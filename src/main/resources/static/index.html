@@ -17,7 +17,7 @@
 <body>
 <!-- 顶部导航栏 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-  <div class="container-fluid">
+  <div id="SysMag" class="container-fluid">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
         <a class="nav-link text-white" href="http://localhost:8080/index.html">博客首页</a>
@@ -40,7 +40,7 @@
       <li class="nav-item">
         <a class="nav-link text-white" href="#">友链管理</a>
       </li>
-      <li class="nav-item">
+      <li v-if="memberLevel === '1'" class="nav-item">
         <a class="nav-link text-white" href="http://localhost:8080/userList.html">用户管理</a>
       </li>
     </ul>
@@ -53,9 +53,15 @@
 
 
 <div class="container main-content">
-  <section class="page-header">
+  <section id="perm" class="page-header">
     <h1>博客管理页面</h1>
-    <p>管理员: xiazhi</p>
+    <div v-if="memberLevel === '1'">
+      <p>您的身份为：管理员</p>
+    </div>
+    <div v-else>
+      <p>您的身份为：普通用户</p>
+    </div>
+
   </section>
 
   <section id="app" class="row page-data">
@@ -64,7 +70,7 @@
         <i class="fas fa-user card-icon"></i>
         <div class="card-value">
           <h3>当前用户</h3>
-          <p>xiazhi</p>
+          <p>{{params.memberName}}</p>
         </div>
       </div>
     </div>
@@ -117,10 +123,25 @@
 </div>
 
 <script>
+  var SysMag = new Vue({
+    el: '#SysMag',
+    data: {
+      memberLevel: localStorage.getItem("memberLevel")
+    }
+  })
+  var perm = new Vue({
+    el: '#perm',
+    data: {
+      memberLevel: localStorage.getItem("memberLevel")
+    }
+  })
   new Vue({
     el: '#app',
     data: {
-      list: {}
+      list: {},
+      params: {
+        memberName: localStorage.getItem("memberName"),
+      }
     },
     mounted() {
       this.fetchData();

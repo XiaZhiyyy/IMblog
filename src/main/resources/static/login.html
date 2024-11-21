@@ -58,6 +58,33 @@
             }
         },
         methods: {
+            query(){
+                // console.log("查询条件:", this.user.memberName); // 打印查询条件
+                //把vue对象传给变量
+                const self = this;
+                $.ajax({
+                    url:"/admin/query",
+                    type:"get",
+                    data:this.user,
+                    success:function (rs){
+                        console.log("后端返回的数据:", rs); // 打印后端返回的
+                        if(rs.code==200){
+                            const memberInfo = rs.data[0];
+                            // console.log("输出用户名",rs.data[0].memberName);
+                            // console.log("用户权限",memberInfo.memberLevel);
+                            if (memberInfo && memberInfo.memberName && memberInfo.memberLevel) {
+                                localStorage.setItem("memberName", memberInfo.memberName);
+                                localStorage.setItem("memberLevel", memberInfo.memberLevel);
+                            } else {
+                                console.error("服务器返回的数据不完整");
+                            }
+                    }else{
+                            alert(rs.msg);
+                            self.list = [];
+                        }
+                    }
+                })
+            },
             login() {
                 $.ajax({    //发送Ajax请求
                     url:"/admin/login",
@@ -73,6 +100,7 @@
                         }
                     }
                 })
+                this.query();
             }
         }
     });
