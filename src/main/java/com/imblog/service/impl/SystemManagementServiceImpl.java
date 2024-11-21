@@ -44,7 +44,7 @@ public class SystemManagementServiceImpl implements SystemManagementService {
 
 
         // 测试用数据
-        long commentCount = 11451;
+        long commentCount = 114514;
         long labelCount = 12;
         return new SystemManagementInfo(commentCount,  articleCount, categoryCount, labelCount, friendshipLinkCount);
     }
