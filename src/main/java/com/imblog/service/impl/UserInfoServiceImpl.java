@@ -88,7 +88,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
             boolean is = memberName!=null&&!memberName.equals("");
             System.out.println("输入的用户名：" + memberName);
-            queryWrapper.like(is,"member_name",memberName);    //必须和数据库表中一致
+            queryWrapper.eq(is,"member_name",memberName);    //必须和数据库表中一致
             // 条件不成立，默认查询所有
             List<UserInfo> list = userInfoDao.selectList(queryWrapper);
             if(list.size() > 0){
